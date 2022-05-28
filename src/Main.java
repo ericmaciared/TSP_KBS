@@ -35,6 +35,14 @@ public class Main {
         } while (verifyCity(source, routes.getCities()));
 
 
+        /* Checks
+        for (City c: routes.getCities()) {
+            if (routes.getConnection(source, c.getName()) != null){
+                System.out.println(routes.getConnection(source, c.getName()).toString());
+            }
+        }
+        */
+
         // Perform A* Algorithm
         AStar aStar = new AStar(source.toLowerCase(Locale.ROOT), destination.toLowerCase(Locale.ROOT),
                 routes);

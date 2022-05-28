@@ -3,11 +3,11 @@ import java.util.ArrayList;
 public class AStar {
     private Routes routes;
     private String source;
-    private String dest;
+    private String destination;
 
     public AStar(String source, String dest, Routes routes) {
         this.source = source;
-        this.dest = dest;
+        this.destination = dest;
         this.routes = routes;
 
         solve();
@@ -34,26 +34,52 @@ public class AStar {
             ArrayList<Node> successors = generateSuccessors(q);
 
             // d) for each successor
+            for (Node successor: successors) {
                 //i) if successor is the goal, stop search
+                if (successor.getName().equals(destination)) {
+                    // TODO: Exit?
+                }
+                else {
+                    //ii) else, compute both g and h for successor
+                    successor.setF(calculateF(successor));
 
-                //ii) else, compute both g and h for successor
+                    // iii) if a node with the same position as successor is in the OPEN list which has a lower f than successor, skip this successor
 
-                // iii) if a node with the same position as successor is in the OPEN list which has a lower f than successor, skip this successor
+                    // iV) if a node with the same position as successor is in the CLOSED list which has a lower f than successor, skip this successor otherwise, add the node to the open list
 
-                // iV) if a node with the same position as successor  is in the CLOSED list which has a lower f than successor, skip this successor otherwise, add  the node to the open list
+                }
+            }
 
             // e) push q on the closed list
+            closeList.add(q);
         }
     }
 
+    private int calculateF(Node successor) {
+        // Calculate g -> movement cost from source to successor
+
+        // Calculate h -> movement cost from successor to destination
+        return 0;
+    }
+
     /**
-     * Generate successor list of node -> all nodes 
-     * @param q
+     * Generate successor list of node -> Generates all cities that have not yet visited
+     * @param node
      * @return
      */
-    private ArrayList<Node> generateSuccessors(Node q) {
+    private ArrayList<Node> generateSuccessors(Node node) {
+        ArrayList<Node> successors = new ArrayList<Node>();
 
+        for (City c: routes.getCities()) {
+            // If a direct connection exists, it is a successor
+            if (routes.getConnection(node.getName(), c.getName()) != null){
+                successors.add(new Node(c.getName(), -1));
+            }
+        }
+
+        return successors;
     }
+
 
     /**
      * Returns node with minimum F value in list
