@@ -32,16 +32,8 @@ public class Main {
         do {
             System.out.print("Enter destination city: ");
             destination = scanner.nextLine();
-        } while (verifyCity(source, routes.getCities()));
+        } while (verifyCity(destination, routes.getCities()));
 
-
-        /* Checks
-        for (City c: routes.getCities()) {
-            if (routes.getConnection(source, c.getName()) != null){
-                System.out.println(routes.getConnection(source, c.getName()).toString());
-            }
-        }
-        */
 
         // Perform A* Algorithm
         AStar aStar = new AStar(source.toLowerCase(Locale.ROOT), destination.toLowerCase(Locale.ROOT),
